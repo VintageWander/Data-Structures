@@ -1,6 +1,7 @@
 ﻿  main.cpp
-C:\Users\Wander\source\repos\Binary Tree\Binary Tree\main.cpp(36,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Wander\source\repos\Binary Tree\Binary Tree\main.cpp(42,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Wander\source\repos\Binary Tree\Binary Tree\main.cpp(44,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Wander\source\repos\Binary Tree\Binary Tree\main.cpp(48,20): warning C4018: '<': signed/unsigned mismatch
-  Binary Tree.vcxproj -> C:\Users\Wander\source\repos\Binary Tree\Debug\Binary Tree.exe
+C:\Users\Wander\Documents\Data-Structures\Data Structures\Binary Tree\Binary Tree\main.cpp(36,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Wander\Documents\Data-Structures\Data Structures\Binary Tree\Binary Tree\main.cpp(42,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Wander\Documents\Data-Structures\Data Structures\Binary Tree\Binary Tree\main.cpp(44,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Wander\Documents\Data-Structures\Data Structures\Binary Tree\Binary Tree\main.cpp(48,20): warning C4018: '<': signed/unsigned mismatch
+  LINK : C:\Users\Wander\Documents\Data-Structures\Data Structures\Binary Tree\Debug\Binary Tree.exe not found or not built by the last incremental link; performing full link
+  Binary Tree.vcxproj -> C:\Users\Wander\Documents\Data-Structures\Data Structures\Binary Tree\Debug\Binary Tree.exe

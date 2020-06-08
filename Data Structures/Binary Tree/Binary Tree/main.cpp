@@ -32,6 +32,17 @@ public:
 	}
 	void VectorToBT(std::vector<int> &vector)
 	{
+		for (int i = 0; i < vector.size(); ++i)
+		{
+			if ((2 * i + 1) < vector.size() && (2 * i + 2) < vector.size())
+			{
+				if (vector[i] == NULL && vector[2 * i + 1] != NULL && vector[2 * i + 2] != NULL)
+				{
+					std::cout << "Invalid Tree" << std::endl;
+					return;
+				}
+			}
+		}
 		std::vector<Node*> nodePointers;
 		for (int i = 0; i < vector.size(); ++i)
 		{
@@ -41,23 +52,38 @@ public:
 		root = nodePointers[0];
 		for (int i = 0; i < vector.size() / 2; ++i)
 		{
-			if ((2 * i + 1) < vector.size())
+			if (nodePointers[i] != NULL)
 			{
-				nodePointers[i]->left = nodePointers[2 * i + 1];
-			}
-			if ((2 * i + 2) < vector.size())
-			{
-				nodePointers[i]->right = nodePointers[2 * i + 2];
+				if ((2 * i + 1) < vector.size() && nodePointers[2 * i + 1] != NULL)
+				{
+					nodePointers[i]->left = nodePointers[2 * i + 1];
+				}
+				if ((2 * i + 2) < vector.size() && nodePointers[2 * i + 2] != NULL)
+				{
+					nodePointers[i]->right = nodePointers[2 * i + 2];
+				}
 			}
 		}
 	}
 	void Print()
 	{
+		if (root == NULL)
+		{
+			std::cout << "There are nothing to print" << std::endl;
+			return;
+		}
 		std::vector<Node*> nodePointers;
 		nodePointers.emplace_back(root);
 		for (int i = 0; i < size; ++i)
 		{
-			std::cout << nodePointers[i]->data << " ";
+			if (nodePointers[i]->data == NULL)
+			{
+				std::cout << "null ";
+			}
+			else
+			{
+				std::cout << nodePointers[i]->data << " ";
+			}
 			if (nodePointers[i]->left != NULL)
 			{
 				nodePointers.emplace_back(nodePointers[i]->left);
@@ -70,6 +96,11 @@ public:
 	}
 	void Clear()
 	{
+		if (root == NULL)
+		{
+			std::cout << "There are nothing to clear" << std::endl;
+			return;
+		}
 		std::vector<Node*> nodePointers;
 		nodePointers.emplace_back(root);
 		for (int i = 0; i < size; ++i)
@@ -90,11 +121,11 @@ public:
 
 int main() 
 {
-	std::vector<int> vector{ 1, 6, 10, 11, 22, 23, 25, 28, 29, 33, 38, 40, 41, 42, 52, 54, 56, 59, 62, 71, 74, 82, 84, 90, 93, 95, 96, 97, 120, 123, 155, 157 };
+	std::vector<int> vector{ 2, 4, 6, NULL, 8, 10, 12, NULL, NULL, 14, NULL, NULL, NULL, NULL, 32, NULL, NULL, NULL, NULL, 20, 22  };
 	BinaryTree* bt = new BinaryTree();
 	bt->VectorToBT(vector);
-	bt->Print(); // currently this will only print the numbers in level-order fashion, I'll try to make it draws a binary tree somehow idk
+	bt->Print(); 
 	bt->Clear();
 	delete bt;
-	
+	// just updated the code to process NULL values in the vector to create binary tree
 }

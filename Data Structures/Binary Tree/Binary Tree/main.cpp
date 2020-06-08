@@ -90,10 +90,11 @@ public:
 
 int main() 
 {
-	std::vector<int> vector{ 1, 6, 10, 11, 22, 23, 25, 28, 29, 33, 38, 40, 41, 42, 52, 54, 56, 59, 62, 71, 74, 82, 84, 90, 93, 95, 96, 97 };
+	std::vector<int> vector{ 1, 6, 10, 11, 22, 23, 25, 28, 29, 33, 38, 40, 41, 42, 52, 54, 56, 59, 62, 71, 74, 82, 84, 90, 93, 95, 96, 97, 120, 123, 155, 157 };
 	BinaryTree* bt = new BinaryTree();
 	bt->VectorToBT(vector);
-	bt->Print();
+	bt->Print(); // currently this will only print the numbers in level-order fashion, I'll try to make it draws a binary tree somehow idk
 	bt->Clear();
 	delete bt;
+	
 }

@@ -63,13 +63,24 @@ int main()
     auto test = SolveNQueens(n);
     for (int i = 0; i < test.size(); i++)
     {
-        for (int j = 0; j < 4; j++)
+        for (int g = 0; g < n*2 + 2; g++)
         {
-            for (int m = 0; m < 4; m++)
+            std::cout << "_";
+        }
+        std::cout << "\n";
+        for (int j = 0; j < n; j++)
+        {
+            std::cout << "|";
+            for (int m = 0; m < n; m++)
             {
                 std::cout << test[i][j][m] << " ";
             }
+            std::cout << "|";
             std::cout << "\n";
+        }
+        for (int g = 0; g < n*2 + 2; g++)
+        {
+            std::cout << "-";
         }
         std::cout << "\n";
     }

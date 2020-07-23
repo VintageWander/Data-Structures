@@ -59,7 +59,7 @@ std::vector<std::vector<std::vector<std::string>>> SolveNQueens(int n)
 
 int main() 
 {
-    int n = 4;
+    int n = 8;
     auto test = SolveNQueens(n);
     for (int i = 0; i < test.size(); i++)
     {

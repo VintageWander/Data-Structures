@@ -25,6 +25,22 @@ struct Node
 class Graph
 {
     std::vector<Node*> nodePointers;
+    void recursiveDFS(Node node, std::vector<int>& visited)
+    {
+        for (int i = 0; i < visited.size(); i++)
+        {
+            if (visited[i] == node.data)
+            {
+                return;
+            }
+        }
+        std::cout << node.data << " ";
+        visited.emplace_back(node.data);
+        for (int i = 0; i < node.connections.size(); i++)
+        {
+            recursiveDFS(*node.connections[i], visited);
+        }
+    }
 public:
     void addVertex(int data)
     {
@@ -102,6 +118,36 @@ public:
             }
         }
     }
+    void dfs(int data)
+    {
+        if (nodePointers.size() <= 0)
+        {
+            std::cout << "The graph is empty\n";
+            return;
+        }
+        else
+        {
+            int index = 0;
+            bool manipulated = false;
+            for (int i = 0; i < nodePointers.size(); i++)
+            {
+                if (nodePointers[i]->data == data)
+                {
+                    index = i;
+                    manipulated = true;
+                    break;
+                }
+            }
+            if (!manipulated)
+            {
+                std::cout << "Can't find the node\n";
+                return;
+            }
+            std::vector<int> visited;
+            recursiveDFS(*nodePointers[index], visited);
+        }
+        std::cout << "\n"; 
+    }
     void Print()
     {
         if (nodePointers.size() <= 0)
@@ -113,7 +159,7 @@ public:
         {
             for (int i = 0 ; i < nodePointers.size(); i++)
             {
-                std::cout << nodePointers[i]->data << " ";
+                if (nodePointers[i] != nullptr) std::cout << nodePointers[i]->data << " ";
             }
         }
         std::cout << "\n";    
@@ -130,6 +176,7 @@ public:
             for (int i = 0; i < nodePointers.size(); i++)
             {
                 delete nodePointers[i];
+                nodePointers[i] = nullptr;
             }
         }
     }
@@ -138,41 +185,39 @@ public:
 int main()
 {
     auto gp = new Graph();
-
-    gp->addVertex(0);
-    gp->addVertex(1);
     gp->addVertex(2);
     gp->addVertex(3);
+    gp->addVertex(10);
+    gp->addVertex(8);
     gp->addVertex(4);
     gp->addVertex(5);
-    gp->addVertex(6);
     gp->addVertex(7);
-    gp->addVertex(8);
-    gp->addVertex(9);
-    gp->addVertex(11);
-    gp->addVertex(12);
-    gp->addVertex(13);
+    gp->addVertex(6);
 
-    gp->addConnection(0, 1);
-    gp->addConnection(1, 5);
-    gp->addConnection(1, 2);
-    gp->addConnection(2, 8);
-    gp->addConnection(2, 9);
-    gp->addConnection(2, 13);
-    gp->addConnection(3, 0);
-    gp->addConnection(3, 7);
-    gp->addConnection(3, 4);
-    gp->addConnection(3, 13);
-    gp->addConnection(4, 3);
-    gp->addConnection(4, 11);
-    gp->addConnection(11, 6);
-    gp->addConnection(13, 12);
-    gp->addConnection(13, 9);
-    gp->addConnection(13, 2);
+    gp->addConnection(2,3);
+    gp->addConnection(2,10);
+    gp->addConnection(3,2);
+    gp->addConnection(3,8);
+    gp->addConnection(3,6);
+    gp->addConnection(3,10);
+    gp->addConnection(10,2);
+    gp->addConnection(10,3);
+    gp->addConnection(10,4);
+    gp->addConnection(4,10);
+    gp->addConnection(4,5);
+    gp->addConnection(5,6);
+    gp->addConnection(5,7);
+    gp->addConnection(5,4);
+    gp->addConnection(6,3);
+    gp->addConnection(6,5);
+    gp->addConnection(8,3);
+    gp->addConnection(7,5);
+
+    gp->dfs(6);
 
     gp->Print();
-    gp->getConnection(3);    
+    gp->Clear();
+    gp->Print();
     delete gp;
-
     return 0;
 }

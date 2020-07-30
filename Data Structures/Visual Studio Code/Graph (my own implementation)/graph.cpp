@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <set>
+#include <unordered_set>
 
 struct Node
 {
@@ -27,7 +29,8 @@ class Graph
     std::vector<Node*> nodePointers;
     void recursiveDFS(Node node, std::vector<int>& visited)
     {
-        for (int i = 0; i < visited.size(); i++)
+        int i = 0;
+        for (i = 0; i < visited.size(); i++)
         {
             if (visited[i] == node.data)
             {
@@ -36,6 +39,7 @@ class Graph
         }
         std::cout << node.data << " ";
         visited.emplace_back(node.data);
+        if (node.connections.size() <= 1 && visited.size() >= 1) {std::cout << visited[i - 1] << " "; return;}
         for (int i = 0; i < node.connections.size(); i++)
         {
             recursiveDFS(*node.connections[i], visited);
@@ -118,6 +122,7 @@ public:
             }
         }
     }
+
     void dfs(int data)
     {
         if (nodePointers.size() <= 0)
@@ -185,35 +190,39 @@ public:
 int main()
 {
     auto gp = new Graph();
+    gp->addVertex(1);
     gp->addVertex(2);
     gp->addVertex(3);
-    gp->addVertex(10);
-    gp->addVertex(8);
     gp->addVertex(4);
     gp->addVertex(5);
-    gp->addVertex(7);
     gp->addVertex(6);
+    gp->addVertex(7);
+    gp->addVertex(8);
+
+    gp->addConnection(1,2);
+    gp->addConnection(1,7);
 
     gp->addConnection(2,3);
-    gp->addConnection(2,10);
-    gp->addConnection(3,2);
-    gp->addConnection(3,8);
-    gp->addConnection(3,6);
-    gp->addConnection(3,10);
-    gp->addConnection(10,2);
-    gp->addConnection(10,3);
-    gp->addConnection(10,4);
-    gp->addConnection(4,10);
-    gp->addConnection(4,5);
-    gp->addConnection(5,6);
-    gp->addConnection(5,7);
-    gp->addConnection(5,4);
-    gp->addConnection(6,3);
-    gp->addConnection(6,5);
-    gp->addConnection(8,3);
-    gp->addConnection(7,5);
+    gp->addConnection(2,7);
 
-    gp->dfs(6);
+    gp->addConnection(3,2);
+    gp->addConnection(3,4);
+
+    gp->addConnection(4,3);
+    gp->addConnection(4,5);
+    gp->addConnection(4,6);
+
+    gp->addConnection(5,4);
+
+    gp->addConnection(6,4);
+    gp->addConnection(6,7);
+
+    gp->addConnection(7,1);
+    gp->addConnection(7,2);
+    gp->addConnection(7,6);
+    gp->addConnection(7,8);
+
+    gp->dfs(1);
 
     gp->Print();
     gp->Clear();

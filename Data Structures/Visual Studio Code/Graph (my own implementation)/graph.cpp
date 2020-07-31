@@ -48,7 +48,7 @@ class Graph
             recursiveDFS(*node.connections[i], visited);
         }
     }
-    int nodeToIndex(int data)
+    int searchNode(int data)
     {
         if (nodePointers.size() <= 0) {std::cout << "The graph is empty\n"; return -1;}
         bool manipulated = false;
@@ -73,8 +73,8 @@ public:
     }
     void addConnection(int first, int second)
     {
-        int first_index = nodeToIndex(first);
-        int second_index = nodeToIndex(second);
+        int first_index = searchNode(first);
+        int second_index = searchNode(second);
         nodePointers[first_index]->connections.emplace_back(nodePointers[second_index]);
     }
     void getConnection(int data)
@@ -84,7 +84,7 @@ public:
             std::cout << "There are nothing to search\n";
             return;
         }
-        int foundIndex = nodeToIndex(data);
+        int foundIndex = searchNode(data);
         std::cout << nodePointers[foundIndex]->data << " connects to : ";
         if (nodePointers[foundIndex]->connections.size() == 0)
         {
@@ -108,23 +108,26 @@ public:
         }
         else
         {
-            int foundIndex = nodeToIndex(data);
-            int loopIndex = 0;
+            int foundIndex = searchNode(data);
+
             std::vector<std::pair<Node*, bool>> pair_nodePointers;
             for (int i = 0; i < nodePointers.size(); i++)
             {
                 pair_nodePointers.emplace_back(std::make_pair(nodePointers[i], false));
             }
+
             std::vector<Node*> bfsQueue;
             bfsQueue.emplace_back(nodePointers[foundIndex]);
             pair_nodePointers[foundIndex].second = true;
+
+            int loopIndex = 0;
             while (bfsQueue.size() < nodePointers.size())
             {
                 if (bfsQueue[loopIndex]->connections.size())
                 {
                     for (int i = 0; i < bfsQueue[loopIndex]->connections.size(); i++)
                     {
-                        int index = nodeToIndex(bfsQueue[loopIndex]->connections[i]->data);
+                        int index = searchNode(bfsQueue[loopIndex]->connections[i]->data);
                         if (pair_nodePointers[index].second == false)
                         {
                             bfsQueue.emplace_back(bfsQueue[loopIndex]->connections[i]);
@@ -134,9 +137,9 @@ public:
                 }
                 ++loopIndex;
             }
-            for (int i = 0; i < bfsQueue.size(); i++)
+            for (auto i : bfsQueue)
             {
-                std::cout << bfsQueue[i]->data << " ";
+                std::cout << i->data << " ";
             }   
         }
         std::cout << "\n"; 
@@ -151,7 +154,8 @@ public:
         }
         else
         {
-            int foundIndex = nodeToIndex(data);
+            int foundIndex = searchNode(data);
+
             std::vector<int> visited;
             recursiveDFS(*nodePointers[foundIndex], visited);
         }
@@ -166,9 +170,9 @@ public:
         }
         else
         {
-            for (int i = 0 ; i < nodePointers.size(); i++)
+            for (auto i : nodePointers)
             {
-                if (nodePointers[i] != nullptr) std::cout << nodePointers[i]->data << " ";
+                if (i != nullptr) std::cout << i->data << " ";
             }
         }
         std::cout << "\n";    
@@ -182,13 +186,11 @@ public:
         }
         else
         {
-            std::vector<Node*> tempVector;
-            for (int i = 0; i < nodePointers.size(); i++)
+            for (auto i : nodePointers)
             {
-                tempVector.emplace_back(nodePointers[i]);
+                delete i;
             }
             nodePointers.clear();
-            std::cout << "\n";
         }
     }
 };
@@ -230,11 +232,12 @@ int main()
 
     gp->dfs(1);
 
-    gp->bfs(4);
+    gp->bfs(5);
 
     gp->Print();
     gp->Clear();
     gp->Print();
+    std::cout << "\n";
     delete gp;
     return 0;
 }

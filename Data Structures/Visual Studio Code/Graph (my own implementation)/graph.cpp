@@ -1,7 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <set>
-#include <unordered_set>
 
 struct Node
 {
@@ -21,6 +19,11 @@ struct Node
     {
         this->data = data;
         this->connections.emplace_back(&node);
+    }
+    ~Node()
+    {
+        this->data = 0;
+        this->connections.clear();
     }
 };
 
@@ -45,6 +48,24 @@ class Graph
             recursiveDFS(*node.connections[i], visited);
         }
     }
+    int nodeToIndex(int data)
+    {
+        if (nodePointers.size() <= 0) {std::cout << "The graph is empty\n"; return -1;}
+        bool manipulated = false;
+        for (int i = 0; i < nodePointers.size(); i++)
+        {
+            if (nodePointers[i]->data == data)
+            {
+                return i;
+            }
+        }
+        if (!manipulated)
+        {
+            std::cout << "Can't find the node from the data\n";
+            return -1;
+        }
+        return -1;
+    }
 public:
     void addVertex(int data)
     {
@@ -52,38 +73,8 @@ public:
     }
     void addConnection(int first, int second)
     {
-        int first_index = 0;
-        bool manipulated1 = false; 
-        for(int i = 0; i < nodePointers.size(); i++)
-        {
-            if (nodePointers[i]->data == first)
-            {
-                first_index = i;
-                manipulated1 = true;
-                break;
-            } 
-        }
-        if (!manipulated1)
-        {
-            std::cout << "First vertex not found\n";
-            return;
-        }
-        int second_index = 0;
-        bool manipulated2 = false;
-        for (int i = 0; i < nodePointers.size(); i++)
-        {
-            if (nodePointers[i]->data == second)
-            {
-                second_index = i;
-                manipulated2 = true;
-                break;
-            }
-        }
-        if (!manipulated2)
-        {
-            std::cout << "Second vertex not found\n";
-            return;
-        }
+        int first_index = nodeToIndex(first);
+        int second_index = nodeToIndex(second);
         nodePointers[first_index]->connections.emplace_back(nodePointers[second_index]);
     }
     void getConnection(int data)
@@ -93,34 +84,62 @@ public:
             std::cout << "There are nothing to search\n";
             return;
         }
-        int index = 0;
-        bool manipulated = false;
-        for (int i = 0; i < nodePointers.size(); i++)
-        {
-            if(nodePointers[i]->data == data)
-            {
-                index = i;
-                manipulated = true;
-                break;
-            }
-        }
-        if (!manipulated)
-        {
-            std::cout << "Can't find the data\n";
-            return;
-        }
-        std::cout << nodePointers[index]->data << " connects to : ";
-        if (nodePointers[index]->connections.size() == 0)
+        int foundIndex = nodeToIndex(data);
+        std::cout << nodePointers[foundIndex]->data << " connects to : ";
+        if (nodePointers[foundIndex]->connections.size() == 0)
         {
             return;
         }
         else
         {
-            for (int i = 0; i < nodePointers[index]->connections.size(); i++)
+            for (int i = 0; i < nodePointers[foundIndex]->connections.size(); i++)
             {
-                std::cout << nodePointers[index]->connections[i]->data << " ";
+                std::cout << nodePointers[foundIndex]->connections[i]->data << " ";
             }
         }
+    }
+
+    void bfs(int data)
+    {
+        if (nodePointers.size() <= 0)
+        {
+            std::cout << "The graph is empty\n";
+            return;
+        }
+        else
+        {
+            int foundIndex = nodeToIndex(data);
+            int loopIndex = 0;
+            std::vector<std::pair<Node*, bool>> pair_nodePointers;
+            for (int i = 0; i < nodePointers.size(); i++)
+            {
+                pair_nodePointers.emplace_back(std::make_pair(nodePointers[i], false));
+            }
+            std::vector<Node*> bfsQueue;
+            bfsQueue.emplace_back(nodePointers[foundIndex]);
+            pair_nodePointers[foundIndex].second = true;
+            while (bfsQueue.size() < nodePointers.size())
+            {
+                if (bfsQueue[loopIndex]->connections.size())
+                {
+                    for (int i = 0; i < bfsQueue[loopIndex]->connections.size(); i++)
+                    {
+                        int index = nodeToIndex(bfsQueue[loopIndex]->connections[i]->data);
+                        if (pair_nodePointers[index].second == false)
+                        {
+                            bfsQueue.emplace_back(bfsQueue[loopIndex]->connections[i]);
+                            pair_nodePointers[index].second = true;
+                        }
+                    }
+                }
+                ++loopIndex;
+            }
+            for (int i = 0; i < bfsQueue.size(); i++)
+            {
+                std::cout << bfsQueue[i]->data << " ";
+            }   
+        }
+        std::cout << "\n"; 
     }
 
     void dfs(int data)
@@ -132,24 +151,9 @@ public:
         }
         else
         {
-            int index = 0;
-            bool manipulated = false;
-            for (int i = 0; i < nodePointers.size(); i++)
-            {
-                if (nodePointers[i]->data == data)
-                {
-                    index = i;
-                    manipulated = true;
-                    break;
-                }
-            }
-            if (!manipulated)
-            {
-                std::cout << "Can't find the node\n";
-                return;
-            }
+            int foundIndex = nodeToIndex(data);
             std::vector<int> visited;
-            recursiveDFS(*nodePointers[index], visited);
+            recursiveDFS(*nodePointers[foundIndex], visited);
         }
         std::cout << "\n"; 
     }
@@ -173,16 +177,18 @@ public:
     {
         if (nodePointers.size() <= 0)
         {
-            std::cout << "There are nothing to print\n";
+            std::cout << "There are nothing to clear\n";
             return;
         }
         else
         {
+            std::vector<Node*> tempVector;
             for (int i = 0; i < nodePointers.size(); i++)
             {
-                delete nodePointers[i];
-                nodePointers[i] = nullptr;
+                tempVector.emplace_back(nodePointers[i]);
             }
+            nodePointers.clear();
+            std::cout << "\n";
         }
     }
 };
@@ -223,6 +229,8 @@ int main()
     gp->addConnection(7,8);
 
     gp->dfs(1);
+
+    gp->bfs(4);
 
     gp->Print();
     gp->Clear();

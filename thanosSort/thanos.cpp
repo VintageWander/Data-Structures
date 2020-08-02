@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <math.h>
 
 //return the maximum number survivor that are in order after the destruction of Thanos
 
@@ -12,6 +13,7 @@ int thanosSort(std::vector<int>& vector)
         if (vector[i] >= storage) { storage = vector[i]; ++count; }
     }
     if (count == n) return count;
+    if (count == 0) return 1;
     while (count < n)
     {
         if (n > 1) n /= 2;
@@ -22,7 +24,7 @@ int thanosSort(std::vector<int>& vector)
 
 int main() 
 {
-    std::vector<int> vector {7, 6, 5, 4};
+    std::vector<int> vector {7, 6, 5, 4, 3};
     std::cout << thanosSort(vector) << "\n";
     return 0;
 }

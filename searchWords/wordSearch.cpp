@@ -4,22 +4,22 @@
 #include <utility>
 #include <string_view>
 
-std::vector<std::vector<std::pair<int, int>>> searchWords(std::vector<std::string>& board, std::vector<std::string>& wordList)
+std::vector<std::vector<std::pair<std::pair<int, int>, std::string>>> searchWords(std::vector<std::string>& board, std::vector<std::string>& wordList)
 {
-    std::vector<std::vector<std::pair<int, int>>> path;
+    std::vector<std::vector<std::pair<std::pair<int, int>, std::string>>> path;
     for (int w = 0; w < wordList.size(); w++) // iterating through the list of words
     {
-        for (int i = 0; i < board.size(); i++) // iterating through rows
+        for (int i = 0; i <= board.size(); i++) // iterating through rows
         {
-            if (i == board.size()) break;
-            for (int j = 0; j < board[i].size(); j++) // iterating through columns
+            if (i > board.size()) break;
+            for (int j = 0; j <= board[i].size(); j++) // iterating through columns
             {
                 if (j == board[i].size() || i == board.size()) break;
                 if (wordList[w][0] == board[i][j]) // check if the first character of the word matches the current word on the board
                 {
-                    std::vector<std::pair<int, int>> position;
-                    position.emplace_back(std::make_pair(i, j));
-                    if (i >= 0 && j + 1 <= board[i].size() - 1 && board[i][j + 1] == wordList[w][1])
+                    std::vector<std::pair<std::pair<int, int>, std::string>> position;
+                    position.emplace_back(std::make_pair(std::make_pair(i, j), "->"));
+                    if (i >= 0 && j + 1 < board[i].size() && board[i][j + 1] == wordList[w][1])
                     {
                         for (int m = 2; m < wordList[w].size(); m++)
                         {
@@ -28,18 +28,18 @@ std::vector<std::vector<std::pair<int, int>>> searchWords(std::vector<std::strin
                                 position.clear();
                                 break;
                             }
-                            if (m == (wordList[w].size() - 1))
+                            if (j + m < board[i].size() && m == (wordList[w].size() - 1))
                             {
-                                position.emplace_back(std::make_pair(i, j + m));
+                                position.emplace_back(std::make_pair(std::make_pair(i, j + m), wordList[w]));
                                 path.emplace_back(position);
                                 position.clear();
-                                j = board[i].size() + 1; 
-                                i = board.size() + 1;
+                                j = board[i].size(); 
+                                i = board.size();
                                 break;
                             }
                         }
                     }
-                    else if (i + 1 <= board.size() - 1 && j + 1 <= board[i].size() - 1 && board[i + 1][j + 1] == wordList[w][1])
+                    else if (i + 1 < board.size() && j + 1 < board[i].size() && board[i + 1][j + 1] == wordList[w][1])
                     {
                         for (int m = 2; m < wordList[w].size(); m++)
                         {
@@ -48,18 +48,18 @@ std::vector<std::vector<std::pair<int, int>>> searchWords(std::vector<std::strin
                                 position.clear();
                                 break;
                             }
-                            if (m == (wordList[w].size() - 1))
+                            if (i + m < board.size() && j + m <= board.size() && m == (wordList[w].size() - 1))
                             {
-                                position.emplace_back(std::make_pair(i + m, j + m));
+                                position.emplace_back(std::make_pair(std::make_pair(i, j + m), wordList[w]));
                                 path.emplace_back(position);
                                 position.clear();
-                                j = board[i].size() + 1;
-                                i = board.size() + 1; 
+                                j = board[i].size();
+                                i = board.size(); 
                                 break;
                             }
                         }
                     }
-                    else if (i + 1 <= board.size() - 1 && j >= 0 && board[i + 1][j] == wordList[w][1])
+                    else if (i + 1 < board.size() && j >= 0 && board[i + 1][j] == wordList[w][1])
                     {
                         for (int m = 2; m < wordList[w].size(); m++)
                         {
@@ -68,18 +68,18 @@ std::vector<std::vector<std::pair<int, int>>> searchWords(std::vector<std::strin
                                 position.clear();
                                 break;
                             }
-                            if (m == (wordList[w].size() - 1))
+                            if (i + m < board.size() && m == (wordList[w].size() - 1))
                             {
-                                position.emplace_back(std::make_pair(i + m, j));
+                                position.emplace_back(std::make_pair(std::make_pair(i, j + m), wordList[w]));
                                 path.emplace_back(position);
                                 position.clear();
-                                j = board[i].size() + 1;
-                                i = board.size() + 1;
+                                j = board[i].size();
+                                i = board.size();
                                 break;
                             }
                         }
                     }
-                    else if (i + 1 <= board.size() - 1 && j - 1 >= 0 && board[i + 1][j - 1] == wordList[w][1])
+                    else if (i + 1 < board.size() && j - 1 >= 0 && board[i + 1][j - 1] == wordList[w][1])
                     {
                         for (int m = 2; m < wordList[w].size(); m++)
                         {
@@ -88,13 +88,13 @@ std::vector<std::vector<std::pair<int, int>>> searchWords(std::vector<std::strin
                                 position.clear();
                                 break;
                             }
-                            if (m == (wordList[w].size() - 1))
+                            if (i + m < board.size() && m == (wordList[w].size() - 1))
                             {
-                                position.emplace_back(std::make_pair(i + m, j - m));
+                                position.emplace_back(std::make_pair(std::make_pair(i, j + m), wordList[w]));
                                 path.emplace_back(position);
                                 position.clear();
-                                j = board[i].size() + 1; 
-                                i = board.size() + 1;
+                                j = board[i].size(); 
+                                i = board.size();
                                 break;
                             }
                         }
@@ -129,6 +129,14 @@ int main()
 
 
     auto test = searchWords(board, wordList);
-    std::cout << " ";
+    for (int i = 0; i < test.size(); i++)
+    {
+        for (int j = 0; j < test[i].size(); j++)
+        {
+            std::cout << test[i][j].first.first << " " << test[i][j].first.second << " " << test[i][j].second<< " ";
+        }
+        std::cout << "\n";
+    }
+
     return 0;
 }

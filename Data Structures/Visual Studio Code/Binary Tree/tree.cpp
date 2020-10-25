@@ -80,7 +80,7 @@ class BinaryTree{
                     if(temp->right == deepRightNode) {
                         /*if the right side of the Node that the temp pointer is pointing to
                         also the same as the deepRightNode pointer is pointing to
-                        make that left Node of temp null, and then delete deepRightNode*/
+                        make that right Node of temp null, and then delete deepRightNode*/
                         temp->right = nullptr; 
                         delete deepRightNode; 
                     } else {
@@ -94,6 +94,7 @@ class BinaryTree{
             /*replace the target's data that needs to be deleted
             into the value that deepRightNode used to hold before getting deleted*/ 
         }
+        /*if both target Node is not found, then return normally*/
         return;
     }
     void PrintTree(){

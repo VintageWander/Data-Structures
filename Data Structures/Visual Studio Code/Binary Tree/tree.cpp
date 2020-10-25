@@ -1,108 +1,144 @@
 #include <iostream>
-#include <string>
-#include <vector>
+#include <queue>
 
-struct Node
-{
-public:
-    int data;
-    Node* left;
-    Node* right;
-    Node() 
-    { 
-        this->data = 0; 
-        this->left = NULL; 
-        this->right = NULL; 
-    }
-    Node(const int& d)      
-    { 
-        this->data = d; 
-        this->left = NULL; 
-        this->right = NULL;
-    }
-};
-
-class BinaryTree
-{
-private:
-    Node* root;
-    int size;
-public:
-    BinaryTree()
-    {
-        this->root = NULL;
-        this->size = 0;
-    }
-    void VectToTree(const std::vector<int>& vector)
-    {
-        for (int i = 0; i < vector.size(); i++)
-        {
-            if ((2 * i + 2) < vector.size())
-            {
-                if (vector[i] == NULL && vector[2 * i + 1] != NULL && vector[2 * i + 2] != NULL)
-                {
-                    std::cout << "Invalid tree\n";
-                    return;
-                }
+class BinaryTree{
+    private:
+    struct Node{
+        int data;
+        Node* left = nullptr;
+        Node* right = nullptr;
+        Node(){}
+        Node(int&& data) : data{data}, left{nullptr}, right{nullptr} {}
+        Node(const int& data, Node* left, Node* right) : data{data}, left{left}, right{right} {}
+    };
+    Node* root = nullptr;
+    public:
+    bool isEmpty() {return root == nullptr ? 1 : 0;}
+    void InsertNode(int&& data){
+        if(!root){
+            root = new Node(std::move(data)); return;
+        }
+        else{
+            std::queue<Node*> nodePointers;
+            nodePointers.emplace(root);
+            while(!nodePointers.empty()){
+                Node* current = nodePointers.front(); nodePointers.pop();
+                if(current->left) {nodePointers.emplace(current->left);}
+                else{current->left = new Node(std::move(data)); return;}
+                if(current->right) {nodePointers.emplace(current->right);}
+                else{current->right = new Node(std::move(data)); return;}
             }
         }
-        std::vector<Node*> nodePointers;
-        for (int i = 0; i < vector.size(); i++)
-        {
-            nodePointers.emplace_back(new Node(vector[i]));
-            ++size;
+    }
+    void deleteNode(int&& data){
+        //edge cases
+        if(!root){return;}
+        if(root->data == data && !root->left && !root->right) {delete root; return;}
+        //function engine
+        std::queue<Node*> nodePointers; // a queue to store nodes while doing bfs
+        Node* deleteTarget = nullptr;   // pointer to the target node needs to be deleted
+        Node* deepRightNode = nullptr;  // the deepest node to replace the deleted Node
+        nodePointers.emplace(root);
+        while(!nodePointers.empty()){ //this loop will do an entire bfs on the tree
+            Node* temp = deepRightNode = nodePointers.front(); nodePointers.pop();
+            /* update the temp pointer and deepRightNope so then when the loop stops, 
+              deepRightNode will be at the end of the tree */
+            if(temp->data == data){ deleteTarget = temp; }
+            /* if the data matches with the data that the temp pointer is pointing to
+            deleteTarget will point into the Node the temp is pointing to */
+            if(temp->left){nodePointers.emplace(temp->left);}
+            if(temp->right){nodePointers.emplace(temp->right);}
         }
-        root = nodePointers[0];
-        for (int i = 0; i < vector.size() / 2; i++)
-        {
-            if (2 * i + 1 < vector.size() && nodePointers[2 * i + 1] != NULL) nodePointers[i]->left = nodePointers[2 * i + 1];
-            if (2 * i + 2 < vector.size() && nodePointers[2 * i + 2] != NULL) nodePointers[i]->right = nodePointers[2 * i + 2];
+        
+        if(deleteTarget && deepRightNode){ // if both are available
+            int replaceValue = deepRightNode->data;
+            nodePointers.emplace(root);
+            while(!nodePointers.empty()){
+                Node* temp = nodePointers.front(); nodePointers.pop();
+                /*still the temp pointer that used to traverse the tree*/
+                if(temp == deepRightNode) { 
+                    /* if the temp pointer is pointing to the same Node that the deepRightNode
+                    is pointing to, make the temp pointer null, and then delete deepRightNode */
+                    temp = nullptr; 
+                    delete deepRightNode; 
+                    return;
+                }
+                if(temp->left){
+                    if(temp->left == deepRightNode) {
+                        /*if the left side of the Node that the temp pointer is pointing to
+                        also the same as the deepRightNode pointer is pointing to
+                        make that left Node of temp null, and then delete deepRightNode*/
+                        temp->left = nullptr; 
+                        delete deepRightNode; 
+                    } else {
+                        /*if not, then push the address of the left Node into the queue
+                        to continue traversing*/
+                        nodePointers.emplace(temp->left);
+                    }
+                }
+                if(temp->right){
+                    if(temp->right == deepRightNode) {
+                        /*if the left side of the Node that the temp pointer is pointing to
+                        also the same as the deepRightNode pointer is pointing to
+                        make that left Node of temp null, and then delete deepRightNode*/
+                        temp->right = nullptr; 
+                        delete deepRightNode; 
+                    } else {
+                        /*if not, then push the address of the right Node into the queue
+                        to continue traversing*/
+                        nodePointers.emplace(temp->right);
+                    }
+                }
+            }
+            deleteTarget->data = replaceValue;
+            /*replace the target's data that needs to be deleted
+            into the value that deepRightNode used to hold before getting deleted*/ 
+        }
+        return;
+    }
+    void PrintTree(){
+        if(!root) {return;}
+        std::queue<Node*> nodePointers; nodePointers.emplace(root);
+        while(!nodePointers.empty()){
+            Node* temp = nodePointers.front(); nodePointers.pop();
+            std::cout << temp->data << ' ';
+            if(temp->left) {nodePointers.emplace(temp->left);}
+            if(temp->right) {nodePointers.emplace(temp->right);}
         }
     }
-    void ClearTree()
-    {
-        if (size == 0 || root == NULL)
-        { 
-            std::cout << "There are nothing to clear\n";
-            return;
+    void Clear(){
+        if(!root) {return;}
+        std::queue<Node*> nodePointers; nodePointers.emplace(root);
+        while(!nodePointers.empty()){
+            Node* temp = nodePointers.front(); nodePointers.pop();
+            if(temp->left) {nodePointers.emplace(temp->left);}
+            if(temp->right) {nodePointers.emplace(temp->right);}
+            delete temp;
         }
-        std::vector<Node*> nodePointers;
-        nodePointers.emplace_back(root);
-        for (int i = 0; i < size; i++)
-        {
-            if (nodePointers[i]->left != NULL)  nodePointers.emplace_back(nodePointers[i]->left);
-            if (nodePointers[i]->right != NULL) nodePointers.emplace_back(nodePointers[i]->right);
-            delete nodePointers[i];
-        }
-        root = NULL;
-        size = 0;
-    }
-    void Print()
-    {
-        if (size == 0 || root == NULL)
-        {
-            std::cout << "There are nothing to display\n";
-            return;
-        }
-        std::vector<Node*> nodePointers;
-        nodePointers.emplace_back(root);
-        for (int i = 0; i < size; i++)
-        {
-            std::cout << nodePointers[i]->data << " ";
-            if (nodePointers[i]->left != NULL)  nodePointers.emplace_back(nodePointers[i]->left);
-            if (nodePointers[i]->right != NULL) nodePointers.emplace_back(nodePointers[i]->right);
-        }
-        std::cout << "\n";
     }
 };
 
-int main() 
-{
-    std::vector<int> vector {1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20,23};
-    BinaryTree* bt = new BinaryTree();
-    bt->VectToTree(vector);
-    bt->Print();
-    bt->ClearTree();
-    bt->Print();
-    delete bt;
-};
+int main(){
+    BinaryTree bt;
+    bt.InsertNode(1);
+    bt.InsertNode(2);
+    bt.InsertNode(3);
+    bt.InsertNode(4);
+    bt.InsertNode(5);
+    bt.InsertNode(6);
+    bt.InsertNode(7);
+    bt.InsertNode(8);
+    bt.InsertNode(9);
+    bt.InsertNode(10);
+    bt.InsertNode(11);
+    bt.InsertNode(12);
+
+    bt.deleteNode(5);
+    bt.deleteNode(2);
+    bt.deleteNode(12);
+
+    bt.PrintTree();
+    bt.Clear();
+    return 0;
+
+}

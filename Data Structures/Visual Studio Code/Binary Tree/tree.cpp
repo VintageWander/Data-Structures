@@ -78,7 +78,7 @@ class BinaryTree{
                 }
                 if(temp->right){
                     if(temp->right == deepRightNode) {
-                        /*if the left side of the Node that the temp pointer is pointing to
+                        /*if the right side of the Node that the temp pointer is pointing to
                         also the same as the deepRightNode pointer is pointing to
                         make that left Node of temp null, and then delete deepRightNode*/
                         temp->right = nullptr; 

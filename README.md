@@ -5,4 +5,4 @@ in which most of them are self-taught. Those C++ code aren't really that clean t
 Usually I like to solve problems that are really interesting and classical (like nQueens and stringPermutations recursive backtracking), 
 but I also made some problems up for myself and chalenge my coding skills to move foward (mostly just to keep myself busy since I don't do much at home)
 
-So, I hope you have a nice stay and a nice day, thanks for reading!
+So, I hope you have a nice stay and a nice day, thank you for reading!

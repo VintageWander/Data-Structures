@@ -8,8 +8,7 @@ using std::cin;
 using std::vector;
 using std::string;
 
-void backtrackRecursion(int& currA, int& currC, int (&A)[5], int (&C)[5],
-                       vector<vector<int>>& result, vector<int>& temp){
+void backtrackRecursion(int& currA, int& currC, int (&A)[5], int (&C)[5], vector<vector<int>>& result, vector<int>& temp){
     if(currA <= 0 && currC <= 0){
         result.emplace_back(temp);
         return;

@@ -44,7 +44,7 @@ int main() {
     unsigned int length = max + 1;
     //create the array to sieve
     bool array[length];
-    //each element are true
+    //each elements are true
     for(int i = 0; i != length; ++i) array[i] = true;
     //make these two false so the print area won't call out 0 and 1 as primes
     array[0] = false;

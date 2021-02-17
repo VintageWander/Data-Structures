@@ -1,0 +1,11 @@
+{
+    "type": "music",
+    "align": "left",
+    "bordered": false,
+    "refreshInterval": 0.0001, 
+    "disableMarquee": true,
+    "action": "appleScript",
+    "actionAppleScript": {
+      "inline": "tell application \"Spotify\"\rplaypause\rend tell"
+    } 
+}

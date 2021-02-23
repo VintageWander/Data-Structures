@@ -194,7 +194,7 @@
     "BSTSnapAreaDefaultShowPictogram" : false,
     "BSTSnapAreaDefaultPictoDistanceFromBottom" : 0.10000000149011612
   },
-  "BTTPresetUUID" : "38A749AC-3446-4CB3-9F24-282FC906789B",
+  "BTTPresetUUID" : "A5D2EC16-00CE-4D32-8EEE-F0C4501E4B8E",
   "BTTPresetContent" : [
     {
       "BTTAppBundleIdentifier" : "com.apple.finder",
@@ -287,7 +287,7 @@
             "BTTTouchBarSliderDrawKnobBackground" : true,
             "BTTTouchBarButtonTextAlignment" : 0,
             "BTTTouchBarAlternateBackgroundColor" : "75.323769, 75.323769, 75.323769, 255.000000",
-            "BTTTBWidgetWidth" : 230,
+            "BTTTBWidgetWidth" : 254,
             "BTTTouchBarItemIconWidth" : 22,
             "BTTTouchBarButtonFontSize" : 15,
             "BTTTouchBarIconTextOffset" : 5,
@@ -384,7 +384,7 @@
             "BTTTouchBarButtonName" : "Current Weather",
             "BTTTouchBarFreeSpaceAfterButton" : 5,
             "BTTTouchBarOnlyShowIcon" : false,
-            "BTTTouchBarWeatherFormat" : "{icon}  {temp}  {moonphase}",
+            "BTTTouchBarWeatherFormat" : "{icon}  {temp} ",
             "BTTTouchBarItemIconHeight" : 22,
             "BTTTouchBarItemPadding" : 0
           }

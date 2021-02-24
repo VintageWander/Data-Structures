@@ -194,7 +194,7 @@
     "BSTSnapAreaDefaultShowPictogram" : false,
     "BSTSnapAreaDefaultPictoDistanceFromBottom" : 0.10000000149011612
   },
-  "BTTPresetUUID" : "AF2844E7-5A06-4547-B9EF-864A81B2D942",
+  "BTTPresetUUID" : "B820DF97-263E-4F82-B933-E4778DC3FC89",
   "BTTPresetContent" : [
     {
       "BTTAppBundleIdentifier" : "BT.G",
@@ -507,11 +507,11 @@
                 "BTTTouchBarFreeSpaceAfterButton" : 0,
                 "BTTTouchBarButtonColor" : "0.000000, 0.000000, 0.000000, 255.000000",
                 "BTTTouchBarItemPlacement" : 2,
-                "BTTTouchBarAppleScriptStringRunOnInit" : 0,
+                "BTTTouchBarAppleScriptStringRunOnInit" : false,
                 "BTTTouchBarAlwaysShowButton" : false,
                 "BTTTouchBarButtonFixedWidthCutOff" : 1,
                 "BTTScriptType" : 0,
-                "BTTTouchBarScriptUpdateInterval" : 1,
+                "BTTTouchBarScriptUpdateInterval" : 0.10000000149011612,
                 "BTTTouchBarButtonWidth" : 60,
                 "BTTTouchBarItemIconHeight" : 22,
                 "BTTTouchBarButtonTextAlignment" : 3,
@@ -523,8 +523,8 @@
                 "BTTTouchBarButtonName" : "--:--",
                 "BTTTouchBarButtonFontSize" : 15,
                 "BTTTouchBarIconTextOffset" : 5,
-                "BTTTouchBarOnlyShowIcon" : false,
                 "BTTTouchBarAppleScriptString" : "set str to \"\" as string\rif ((str is equal to str) and (application \"Safari\" is running)) then\r\ttell application \"Safari\"\r\t\trepeat with t in tabs of windows\r\t\t\ttell t\r\t\t\t\tif URL starts with \"https:\/\/www.youtube.com\/watch\" then\r\t\t\t\t\ttell t\r\t\t\t\t\t\tset position1 to (do JavaScript \"document.getElementById(\\\"movie_player\\\").getCurrentTime();\")\r\t\t\t\t\tend tell\r\t\t\t\t\tset mm to round position1 \/ 60 rounding down\r\t\t\t\t\tset ss to round (position1 - (mm * 60)) rounding down\r\t\t\t\t\tif ss is less than 10 then\r\t\t\t\t\t\tset ss to (\"0\" & (ss as text)) as string\r\t\t\t\t\tend if\r\t\t\t\t\tset position1 to (mm as string) & \":\" & ss as string\r\t\t\t\t\treturn position1\n\t\t\t\telse\n\t\t\t\t\treturn \"--:--\"\r\t\t\t\tend if\r\t\t\tend tell\r\t\tend repeat\r\tend tell\relse\r\treturn \"--:--\"\rend if\rreturn str",
+                "BTTTouchBarOnlyShowIcon" : false,
                 "BTTTouchBarItemPadding" : 0
               }
             },
@@ -545,16 +545,16 @@
               "BTTDisplayOrder" : 0,
               "BTTMergeIntoTouchBarGroups" : 0,
               "BTTTriggerConfig" : {
-                "BTTTouchBarItemPadding" : 0,
+                "BTTTouchBarFreeSpaceAfterButton" : 0,
                 "BTTTouchBarButtonColor" : "221.000000, 0.000000, 0.000000, 255.000000",
                 "BTTTouchBarItemPlacement" : 2,
                 "BTTTouchBarAppleScriptStringRunOnInit" : false,
                 "BTTTouchBarAlwaysShowButton" : false,
-                "BTTTouchBarSliderTriggerPercentage" : 1,
+                "BTTTouchBarSliderTriggerPercentage" : 0.0099999997764825821,
                 "BTTScriptType" : 0,
                 "BTTTouchBarShowRightIconForSlider" : false,
                 "BTTTouchBarButtonWidth" : 100,
-                "BTTTouchBarScriptUpdateInterval" : 1,
+                "BTTTouchBarScriptUpdateInterval" : 0.10000000149011612,
                 "BTTTouchBarShowLeftIconForSlider" : false,
                 "BTTTBDrawKnobWithoutPadding" : 0,
                 "BTTTouchBarItemIconHeight" : 22,
@@ -567,9 +567,9 @@
                 "BTTTouchBarButtonFontSize" : 15,
                 "BTTTouchBarIconTextOffset" : 5,
                 "BTTTouchBarSliderDrawKnobIconWhite" : false,
+                "BTTTouchBarOnlyShowIcon" : false,
                 "BTTTouchBarAppleScriptString" : "try\r\ttell application \"BetterTouchTool\"\r\t\tif is_app_running \"Safari\" then\r\t\t\ttell application \"Safari\"\n\t\t\t\trepeat with t in tabs of windows\r\t\t\t\t\ttell t\r\t\t\t\t\t\tif URL starts with \"https:\/\/www.youtube.com\/watch\" then\r\t\t\t\t\t\t\tset duration1 to (do JavaScript \"document.getElementById(\\\"movie_player\\\").getDuration();\")\r\t\t\t\t\t\t\tset position1 to (do JavaScript \"document.getElementById(\\\"movie_player\\\").getCurrentTime();\")\r\t\t\t\t\t\tend if\r\t\t\t\t\tend tell\r\t\t\t\tend repeat\r\t\t\tend tell\r\t\t\tset current to position1 \/ duration1\r\t\t\treturn current\r\t\telse\r\t\t\treturn 0\r\t\tend if\r\tend tell\ron error\r\treturn 0\rend try",
-                "BTTTouchBarFreeSpaceAfterButton" : 0,
-                "BTTTouchBarOnlyShowIcon" : false
+                "BTTTouchBarItemPadding" : 0
               }
             },
             {
@@ -589,14 +589,14 @@
               "BTTDisplayOrder" : 0,
               "BTTMergeIntoTouchBarGroups" : 0,
               "BTTTriggerConfig" : {
-                "BTTTouchBarItemPadding" : 0,
+                "BTTTouchBarAppleScriptString" : "\rset str to \"\" as string\rif ((str is equal to str) and (application \"Safari\" is running)) then\r\ttell application \"Safari\"\r\t\trepeat with t in tabs of windows\r\t\t\ttell t\r\t\t\t\tif URL starts with \"https:\/\/www.youtube.com\/watch\" then\r\t\t\t\t\ttell t\r\t\t\t\t\t\tset duration1 to (do JavaScript \"document.getElementById(\\\"movie_player\\\").getDuration();\")\r\t\t\t\t\tend tell\r\t\t\t\t\tset mm to round duration1 \/ 60 rounding down\r\t\t\t\t\tset ss to round (duration1 - (mm * 60)) rounding down\r\t\t\t\t\tif ss is less than 10 then\r\t\t\t\t\t\tset ss to (\"0\" & (ss as text)) as string\r\t\t\t\t\tend if\r\t\t\t\t\tset duration1 to (mm as string) & \":\" & ss as string\r\t\t\t\t\treturn duration1\n\t\t\t\telse\n\t\t\t\t\treturn \"-:--:--\"\r\t\t\t\tend if\r\t\t\tend tell\r\t\tend repeat\r\tend tell\relse\r\treturn \"-:--:--\"\rend if\rreturn str",
                 "BTTTouchBarButtonColor" : "0.000000, 0.000000, 0.000000, 255.000000",
                 "BTTTouchBarItemPlacement" : 2,
-                "BTTTouchBarAppleScriptStringRunOnInit" : 0,
+                "BTTTouchBarAppleScriptStringRunOnInit" : false,
                 "BTTTouchBarAlwaysShowButton" : false,
                 "BTTTouchBarButtonFixedWidthCutOff" : 1,
                 "BTTScriptType" : 0,
-                "BTTTouchBarScriptUpdateInterval" : 1,
+                "BTTTouchBarScriptUpdateInterval" : 0.10000000149011612,
                 "BTTTouchBarButtonWidth" : 60,
                 "BTTTouchBarItemIconHeight" : 22,
                 "BTTTouchBarButtonTextAlignment" : 3,
@@ -609,8 +609,8 @@
                 "BTTTouchBarButtonFontSize" : 15,
                 "BTTTouchBarIconTextOffset" : 5,
                 "BTTTouchBarOnlyShowIcon" : false,
-                "BTTTouchBarAppleScriptString" : "\rset str to \"\" as string\rif ((str is equal to str) and (application \"Safari\" is running)) then\r\ttell application \"Safari\"\r\t\trepeat with t in tabs of windows\r\t\t\ttell t\r\t\t\t\tif URL starts with \"https:\/\/www.youtube.com\/watch\" then\r\t\t\t\t\ttell t\r\t\t\t\t\t\tset duration1 to (do JavaScript \"document.getElementById(\\\"movie_player\\\").getDuration();\")\r\t\t\t\t\tend tell\r\t\t\t\t\tset mm to round duration1 \/ 60 rounding down\r\t\t\t\t\tset ss to round (duration1 - (mm * 60)) rounding down\r\t\t\t\t\tif ss is less than 10 then\r\t\t\t\t\t\tset ss to (\"0\" & (ss as text)) as string\r\t\t\t\t\tend if\r\t\t\t\t\tset duration1 to (mm as string) & \":\" & ss as string\r\t\t\t\t\treturn duration1\n\t\t\t\telse\n\t\t\t\t\treturn \"-:--:--\"\r\t\t\t\tend if\r\t\t\tend tell\r\t\tend repeat\r\tend tell\relse\r\treturn \"-:--:--\"\rend if\rreturn str",
-                "BTTTouchBarFreeSpaceAfterButton" : 0
+                "BTTTouchBarFreeSpaceAfterButton" : 0,
+                "BTTTouchBarItemPadding" : 0
               }
             }
           ],
@@ -1528,7 +1528,7 @@
                 "BTTTouchBarFreeSpaceAfterButton" : 0,
                 "BTTTouchBarButtonColor" : "0.000000, 0.000000, 0.000000, 255.000000",
                 "BTTTouchBarItemPlacement" : 2,
-                "BTTTouchBarAppleScriptStringRunOnInit" : 1,
+                "BTTTouchBarAppleScriptStringRunOnInit" : true,
                 "BTTTouchBarAlwaysShowButton" : false,
                 "BTTScriptType" : 0,
                 "BTTTouchBarScriptUpdateInterval" : 0.10000000149011612,
@@ -1543,8 +1543,8 @@
                 "BTTTouchBarButtonName" : "--:--",
                 "BTTTouchBarButtonFontSize" : 15,
                 "BTTTouchBarIconTextOffset" : 5,
-                "BTTTouchBarOnlyShowIcon" : false,
                 "BTTTouchBarAppleScriptString" : "tell application \"BetterTouchTool\"\r\tif is_app_running \"Spotify\" then\r\ttell application \"Spotify\"\r\t\tset position1 to (get player position)\r\tend tell\r\tset mm to round position1 \/ 60 rounding down\r\tset ss to round (position1 - (mm * 60)) rounding down\r\tif ss is less than 10 then\r\t\tset ss to (\"0\" & (ss as text)) as string\r\tend if\r\tset position1 to (mm as string) & \":\" & ss as string\r\treturn position1\relse\r\treturn \"--:--\"\rend if\rend tell",
+                "BTTTouchBarOnlyShowIcon" : false,
                 "BTTTouchBarItemPadding" : 0
               }
             },
@@ -1588,8 +1588,8 @@
                 "BTTTouchBarButtonFontSize" : 15,
                 "BTTTouchBarIconTextOffset" : 5,
                 "BTTTouchBarSliderDrawKnobIconWhite" : false,
-                "BTTTouchBarOnlyShowIcon" : false,
                 "BTTTouchBarAppleScriptString" : "try\r\ttell application \"BetterTouchTool\"\r\t\tif is_app_running \"Spotify\" then\r\t\t\ttell application \"Spotify\"\r\t\t\t\tset position1 to (get player position)\r\t\t\t\tset duration1 to (get duration of the current track)\r\t\t\t\tset duration1 to duration1 \/ 1000\r\t\t\tend tell\r\t\t\tset current to position1 \/ duration1\r\t\t\treturn current\r\t\telse\r\t\t\treturn 0\r\t\tend if\r\tend tell\ron error\r\treturn 0\rend try",
+                "BTTTouchBarOnlyShowIcon" : false,
                 "BTTTouchBarItemPadding" : 0
               }
             },
@@ -1615,7 +1615,7 @@
                 "BTTTouchBarFreeSpaceAfterButton" : 0,
                 "BTTTouchBarButtonColor" : "0.000000, 0.000000, 0.000000, 255.000000",
                 "BTTTouchBarItemPlacement" : 2,
-                "BTTTouchBarAppleScriptStringRunOnInit" : 1,
+                "BTTTouchBarAppleScriptStringRunOnInit" : true,
                 "BTTTouchBarAlwaysShowButton" : false,
                 "BTTScriptType" : 0,
                 "BTTTouchBarScriptUpdateInterval" : 0.10000000149011612,
@@ -1630,8 +1630,8 @@
                 "BTTTouchBarButtonName" : "-:--:--",
                 "BTTTouchBarButtonFontSize" : 15,
                 "BTTTouchBarIconTextOffset" : 5,
-                "BTTTouchBarOnlyShowIcon" : false,
                 "BTTTouchBarAppleScriptString" : "tell application \"BetterTouchTool\"\r\tif is_app_running \"Spotify\" then\r\t\ttell application \"Spotify\"\r\t\t\tset duration1 to (get duration of the current track)\r\t\tend tell\r\t\tset initSec to round duration1 \/ 1000 rounding down\r\t\tset mm to round initSec \/ 60 rounding down\r\t\tset ss to round (initSec - (mm * 60))\r\t\tif ss is less than 10 then\r\t\t\tset ss to (\"0\" & (ss as text)) as string\r\t\tend if\r\t\tset initSec to (mm as string) & \":\" & ss as string\r\t\t--set ss to (theDuration \/ 60) - (mm)\r\t\treturn initSec\r\telse\r\t\treturn \"-:--:--\"\r\tend if\rend tell",
+                "BTTTouchBarOnlyShowIcon" : false,
                 "BTTTouchBarItemPadding" : 0
               }
             }

@@ -2,11 +2,12 @@
 #include <vector>
 #include <string>
 #include <utility>
-#include <string_view>
 
-std::vector<std::vector<std::pair<std::pair<int, int>, std::string>>> searchWords(std::vector<std::string>& board, std::vector<std::string>& wordList)
+using std::vector, std::pair, std::string;
+
+vector<vector<pair<pair<int, int>, string>>> searchWords(vector<string>& board, vector<string>& wordList)
 {
-    std::vector<std::vector<std::pair<std::pair<int, int>, std::string>>> path;
+    vector<vector<pair<pair<int, int>, string>>> path;
     for (int w = 0; w < wordList.size(); w++) // iterating through the list of words
     {
         for (int i = 0; i <= board.size(); i++) // iterating through rows
@@ -17,8 +18,8 @@ std::vector<std::vector<std::pair<std::pair<int, int>, std::string>>> searchWord
                 if (j == board[i].size() || i == board.size()) break;
                 if (wordList[w][0] == board[i][j]) // check if the first character of the word matches the current word on the board
                 {
-                    std::vector<std::pair<std::pair<int, int>, std::string>> position;
-                    position.emplace_back(std::make_pair(std::make_pair(i, j), "->"));
+                    vector<pair<pair<int, int>, string>> position;
+                    position.emplace_back(make_pair(std::make_pair(i, j), "->"));
                     if (i >= 0 && j + 1 < board[i].size() && board[i][j + 1] == wordList[w][1])
                     {
                         for (int m = 2; m < wordList[w].size(); m++)

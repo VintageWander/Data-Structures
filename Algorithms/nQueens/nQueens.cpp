@@ -3,8 +3,7 @@
 #include <string>
 using std::vector, std::string;
 
-bool isValid(int row, int col, int size, vector<vector<string>> &board)
-{
+bool isValid(int row, int col, int size, vector<vector<string>> &board){
     for (int a = 1; row - a >= 0; a++) {
         if (board[row - a][col] == "Q"){ return false; }
     }
@@ -47,8 +46,7 @@ vector<vector<vector<string>>> SolveNQueens(int n){
     return solutions;
 };
 
-int main() 
-{
+int main(){
     int n = 8;
     auto test = SolveNQueens(n);
     for (int i = 0; i < test.size(); i++){

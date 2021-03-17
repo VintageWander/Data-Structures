@@ -56,10 +56,7 @@ public:
     size_t getSize() const {
         return size;
     }
-    ~Stack(){
-        while(!isEmpty()) pop();
-        head = nullptr; tail = nullptr;
-    }
+    ~Stack() { clear(); }
 };
 
 auto main() -> int {

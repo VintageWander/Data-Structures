@@ -14,8 +14,8 @@ struct Node{
 class Stack{
     Node* head = nullptr;
     Node* tail = nullptr;
-public:
     size_t size = 0;
+public:
     Stack() = default;
     Node* push(const int& data){
         if(!head) {
@@ -52,6 +52,10 @@ public:
         for(Node* iter = head; iter != nullptr; iter = iter->next) std::cout << iter->data << ' ';
         std::cout << '\n';
     }
+    [[nodiscard]]
+    size_t getSize() const {
+        return size;
+    }
 };
 
 auto main() -> int {
@@ -61,15 +65,15 @@ auto main() -> int {
     test.push(3);
     test.push(4);
     test.push(5);
-    std::cout << test.size << '\n';
+    std::cout << test.getSize() << '\n';
     test.pop();
     test.print();
-    std::cout << test.size << '\n';
+    std::cout << test.getSize() << '\n';
     test.clear();
     test.print();
-    std::cout << test.size << '\n';
+    std::cout << test.getSize() << '\n';
     test.push(10);
     test.print();
-    std::cout << test.size << '\n';
+    std::cout << test.getSize() << '\n';
 }
 

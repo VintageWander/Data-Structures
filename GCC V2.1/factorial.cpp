@@ -18,7 +18,8 @@ std::string factorial(int n){
             temp /= 10;
         }
     }
-	for(int i = size - 1; i >= 0; i--) result += std::to_string(storage[i]);
+	for(int i = size - 1; i >= 0; i--) 
+		result += std::to_string(storage[i]);
     return result;
 }
 

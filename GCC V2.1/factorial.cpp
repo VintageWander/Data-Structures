@@ -4,8 +4,7 @@
 //Nguyen Duc Truong Giang giangndtgch18231
 
 std::string factorial(int n){
-	int storage[200] = {1}, size = 1;
-    std::string result;
+	int storage[200] = {1}, size = 1; std::string result;
 	for (int i = 2; i <= n; i++) {
         int temp = 0;
         for (int j = 0; j < size; j++) {
@@ -18,7 +17,7 @@ std::string factorial(int n){
             temp /= 10;
         }
     }
-	for (int i = size - 1; i >= 0; i--) result += std::to_string(storage[i]);
+	for(int i = size - 1; i >= 0; i--) result += std::to_string(storage[i]);
     return result;
 }
 
